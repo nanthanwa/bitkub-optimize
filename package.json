@@ -1,0 +1,35 @@
+{
+  "name": "bitkub-optimize",
+  "version": "0.0.1",
+  "description": "RESTful API client for Bitkub.com",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "console-stamp": "^0.2.9",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nanmcpe/bitkub-optimize.git"
+  },
+  "keywords": [
+    "cryptocurrentcy",
+    "trading",
+    "bot",
+    "bitkub",
+    "webhook"
+  ],
+  "author": "Thanwa Jindarattana",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nanmcpe/bitkub-optimize/issues"
+  },
+  "homepage": "https://github.com/nanmcpe/bitkub-optimize#readme"
+}
