@@ -23,6 +23,8 @@ app.use(cors({
 
 app.use(require('morgan')('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
 
 app.use('/api', require('./routes/tradingview'));
 
