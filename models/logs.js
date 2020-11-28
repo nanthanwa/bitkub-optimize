@@ -5,7 +5,8 @@ module.exports = (sequelize, Sequelize) => {
             triggerID: {
                 type: Sequelize.INTEGER,
                 field: 'TriggerID',
-                primaryKey: true
+                autoIncrement: true,
+                primaryKey: true,
             },
             timestamp: {
                 type: Sequelize.DATE,

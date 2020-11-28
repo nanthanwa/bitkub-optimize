@@ -1,5 +1,6 @@
 require('dotenv').config();
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const { Logs, Sequelize } = require('./databases/bitkub');
 const express = require('express');
 const app = express();
@@ -21,6 +22,7 @@ app.use(cors({
 }));
 
 app.use(require('morgan')('dev'));
+app.use(bodyParser.json());
 
 app.use('/api', require('./routes/tradingview'));
 
