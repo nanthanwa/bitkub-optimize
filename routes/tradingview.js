@@ -1,28 +1,27 @@
 const router = require('express').Router();
+
 const { Logs, Sequelize } = require('../databases/bitkub');
+const { parseObject } = require('../utils');
 
 router.post('/tradingview/btcusd', async (req, res, next) => {
     try {
         console.log('TradingView has hooked [BTCUSD]');
         console.log('body', req.body);
-        const text = req.body;
-        text.split(',').forEach(item => {
-            const key = item.trim().split('=')[0].trim();
-            const value = item.trim().split('=')[1].trim();
-            if (key === 'Volume' || key === 'Open' || key === 'High' || key === 'Low' || key === 'Close') {
-                obj[key] = parseFloat(value);
-            } else if (key === 'Time' || key === 'TimeNow') {
-                obj[key] = moment(value);
-            } else {
-                obj[key] = value;
-            }
-        });
+        const obj = parseObject(req.body);
         console.log('obj', obj);
-        // const logs = await Logs.create({ timestamp: new Date() });
-        // await logs.save();
-        // res.json(logs);
+        await Logs.create({
+            timestamp: new Date().toISOString(),
+            exchange: obj.Exchange,
+            ticker: obj.Ticker,
+            open: obj.Open,
+            close: obj.Close,
+            high: obj.High,
+            low: obj.Low,
+            volume: obj.Volume,
+        });
         res.sendStatus(200);
     } catch (err) {
+        console.error(err);
         res.status(500).json({
             err: err.message
         });

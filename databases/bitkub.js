@@ -15,6 +15,7 @@ const sequelize = new Sequelize(process.env.DB_SQL_DB, process.env.DB_SQL_USER, 
         timezone: 'Etc/GMT+7'
     },
     timezone: 'Etc/GMT+7',
+    logging: false,
     query: { raw: true },
 });
 
