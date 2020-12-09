@@ -56,10 +56,10 @@ SELL_RATIO=1
 
 ## Dockerize (Optional)
 ### Build docker image
-`docker build -t <YOUR-IMAGE-HOST>/bitkub-optimize:latest`
+`docker build -t <YOUR-IMAGE-HOST>/bitkub-optimize:<version>`
 
 ### Push docker image
-`docker push <YOUR-IMAGE-HOST>/bitkub-optimize:latest`
+`docker push <YOUR-IMAGE-HOST>/bitkub-optimize:<version>`
 
 ### Pull docker image
 `docker-compose pull`
