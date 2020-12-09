@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { signBody } = require('../utils');
 const moment = require('moment');
 const axios = require('axios');
-const { TradingViewLogs, TradingLogs, Sequelize } = require('../databases/bitkub');
+const { TradingViewLogs } = require('../databases/bitkub');
 const { parseObject, getErrorDescription, getWallet, placeBid, placeAsk } = require('../utils');
 
 router.post('/tradingview/btcusd', async (req, res, next) => {
