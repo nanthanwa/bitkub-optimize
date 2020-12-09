@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const TradingViewLogs = sequelize.define(
-        'TradingViewLogs',
+        'log_trading',
         {
             triggerID: {
                 type: Sequelize.INTEGER,
