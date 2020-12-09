@@ -2,8 +2,10 @@ require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const express = require('express');
+const moment = require('moment');
 const app = express();
 const { sequelize } = require('./databases/bitkub');
+const morgan = require('morgan');
 
 require('console-stamp')(console, {
     pattern: 'dd/mm/yyyy HH:MM:ss.l',
@@ -15,13 +17,19 @@ require('console-stamp')(console, {
 
 const isProduction = process.env.NODE_ENV === 'Production';
 
-app.use(cors({
-    origin: ['http://localhost', 'http://localhost:3000'],
-    optionsSuccessStatus: 200,
-    credentials: true,
-}));
+if (isProduction) {
+    // Normal express config defaults
+    morgan.token('remoteIP', (req) => req.headers['x-forwarded-for']);
+    app.use(morgan(':method :url :remoteIP :status :response-time ms - :res[content-length]'));
+} else {
+    app.use(cors({
+        origin: ['http://localhost', 'http://localhost:3000'],
+        optionsSuccessStatus: 200,
+        credentials: true,
+    }));
+    app.use(morgan('dev'));
+}
 
-app.use(require('morgan')('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
