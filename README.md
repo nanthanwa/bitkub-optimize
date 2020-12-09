@@ -51,13 +51,13 @@ BUY_RATIO=0.01
 SELL_RATIO=1
 ```
 
-## Build docker image (Optionnal)
+## Build docker image (Optional)
 `docker build -t <YOUR-IMAGE-HOST>/bitkub-optimize:latest`
 
-## Push docker image (Optionnal)
+## Push docker image (Optional)
 `docker push <YOUR-IMAGE-HOST>/bitkub-optimize:latest`
 
-## Pull docker image (Optionnal)
+## Pull docker image (Optional)
 `docker-compose pull`
 
 ## Run application
