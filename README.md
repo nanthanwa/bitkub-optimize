@@ -1,14 +1,14 @@
 # bitkub-optimize
 Node.JS trading bot for [Bitkub.com](https://bitkub.com) using [TradingView](https://tradingview.com) webhook.
 
-## TODO
+## TODO (PR-Welcomed)
 - Replace moment.js with [date-fns](https://github.com/date-fns/date-fns).
 - Add stop-limit order feature (waiting for Bitkub releases this API, [see more](https://github.com/bitkub/bitkub-official-api-docs/issues/24)).
 - Add trailing stop order feature (after stop-limit order API is released).
 
 ## Strategy
 - Buying or selling signals will be triggered from TradingView, we should setup at TradingView side. 
-### This is some strategies that we can configurable
+#### This is some strategies that we can configurable
 - Buy BTC using 90% of THB on your available balance when condition is met.
 - Sell 100% BTC of your available balance when condition is met.
 
@@ -66,13 +66,13 @@ SELL_RATIO=1
 `$ mysql -u <user> -p bitkub < database.sql`
 
 ## Dockerize (Optional)
-### Build docker image
+#### Build docker image
 `docker build -t <YOUR-IMAGE-HOST>/bitkub-optimize:<version>`
 
-### Push docker image
+#### Push docker image
 `docker push <YOUR-IMAGE-HOST>/bitkub-optimize:<version>`
 
-### Pull docker image
+#### Pull docker image
 `docker-compose pull`
 
 ## Run application
