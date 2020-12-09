@@ -18,7 +18,8 @@ side = sell, tf = 4h, exchange = {{exchange}}, ticker = {{ticker}}, open = {{ope
 
 ## Setup firewall (Recommended)
 We allow incomming traffic from trusted source only
-Here is a list of IP addresses that we need to receive POST requests
+Here is a list of IP addresses that we need to receive POST requests.
+For more infomation, please see [About webhooks](https://www.tradingview.com/chart/?solution=43000529348)
 ```
 52.89.214.238
 34.212.75.30
