@@ -57,7 +57,7 @@ router.get('/wallet', async (req, res, next) => {
     }
 });
 
-router.get('/buy', async (req, res, next) => {
+router.post('/buy', async (req, res, next) => {
     try {
         let body = {
             sym: 'THB_BTC',
@@ -99,7 +99,7 @@ router.get('/buy', async (req, res, next) => {
     }
 });
 
-router.get('/sell', async (req, res, next) => {
+router.post('/sell', async (req, res, next) => {
     try {
         let body = {
             sym: 'THB_BTC',
@@ -129,6 +129,8 @@ router.get('/sell', async (req, res, next) => {
                 message: errMessage
             });
         } else {
+            response.result.ts = response.result.ts * 1000; // emit millisecond
+            await TradingLogs.create(response.result);
             res.json(response.result);
         }
     } catch (err) {
@@ -139,20 +141,17 @@ router.get('/sell', async (req, res, next) => {
     }
 });
 
-router.get('/cancel', async (req, res, next) => {
+router.post('/cancel', async (req, res, next) => {
     try {
         let body = {
-            sym: 'THB_BTC',
-            amt: 0.0001, // BTC no trailing zero 
-            rat: 600000, // for market order use 0
-            typ: 'limit',
+            hash: 'fwQ6dnQYKnqB17qriRcuwRmhYVR',
             ts: moment().unix()
         };
         const signedBody = signBody(body);
         body.sig = signedBody;
         const response = await axios({
             method: 'post',
-            url: `${process.env.BITKUB_ROOT_URL}/api/market/place-ask`,
+            url: `${process.env.BITKUB_ROOT_URL}/api/market/cancel-order`,
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json',
@@ -169,7 +168,7 @@ router.get('/cancel', async (req, res, next) => {
                 message: errMessage
             });
         } else {
-            res.json(response.result);
+            res.json({ msg: success }); // no response payload from Bitkub's server
         }
     } catch (err) {
         console.error(err);
