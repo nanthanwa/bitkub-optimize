@@ -1,3 +1,7 @@
 .DS_Store
 .env
+.git
 docker-compose.yml
+database.sql
+.gitignore
+.Dockerfile
