@@ -2,9 +2,9 @@ module.exports = (sequelize, Sequelize) => {
     const TradingViewLogs = sequelize.define(
         'log_tradingview',
         {
-            triggerID: {
+            id: {
                 type: Sequelize.INTEGER,
-                field: 'TriggerID',
+                field: 'ID',
                 autoIncrement: true,
                 primaryKey: true,
             },
