@@ -1,4 +1,6 @@
 # bitkub-optimize
+![CodeQL](https://github.com/nanmcpe/bitkub-optimize/workflows/CodeQL/badge.svg)
+
 Node.JS trading bot for [Bitkub.com](https://bitkub.com) using [TradingView](https://tradingview.com) webhook.
 
 ![](https://smartadvicefordumbmillennials.com/wp-content/uploads/2017/10/wolf_of_wall_street_money.gif)
