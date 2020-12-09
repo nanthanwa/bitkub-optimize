@@ -20,6 +20,14 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.STRING,
                 field: 'Ticker'
             },
+            tf: {
+                type: Sequelize.ENUM('4h', '6h', '8h', '12h', '1d'),
+                field: 'Timeframe'
+            },
+            side: {
+                type: Sequelize.ENUM('buy', 'sell'),
+                field: 'Side'
+            },
             open: {
                 type: Sequelize.NUMBER,
                 field: 'Open'

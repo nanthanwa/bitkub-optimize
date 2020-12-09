@@ -8,9 +8,9 @@ function parseObject(text) {
     text.split(',').forEach(item => {
         const key = item.trim().split('=')[0].trim();
         const value = item.trim().split('=')[1].trim();
-        if (key === 'Volume' || key === 'Open' || key === 'High' || key === 'Low' || key === 'Close') {
+        if (key === 'volume' || key === 'open' || key === 'high' || key === 'low' || key === 'close') {
             obj[key] = parseFloat(value);
-        } else if (key === 'Time' || key === 'TimeNow') {
+        } else if (key === 'timestamp') {
             obj[key] = moment(value);
         } else {
             obj[key] = value;

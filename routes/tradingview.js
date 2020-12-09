@@ -11,16 +11,7 @@ router.post('/tradingview/btcusd', async (req, res, next) => {
         console.log('body', req.body);
         const obj = parseObject(req.body);
         console.log('obj', obj);
-        await TradingViewLogs.create({
-            timestamp: new Date().toISOString(),
-            exchange: obj.Exchange,
-            ticker: obj.Ticker,
-            open: obj.Open,
-            close: obj.Close,
-            high: obj.High,
-            low: obj.Low,
-            volume: obj.Volume,
-        });
+        await TradingViewLogs.create(obj);
         res.sendStatus(200);
     } catch (err) {
         console.error(err);
@@ -50,12 +41,12 @@ router.post('/test/buy', async (req, res, next) => {
 router.post('/test/sell', async (req, res, next) => {
     try {
         const wallet = await getWallet();
-        const thb = wallet.result.THB;
-        const buyRatio = process.env.BUY_RATIO;
-        const amountToBuy = parseFloat((thb * buyRatio).toFixed(2));
-        console.log('amountToBuy', amountToBuy);
-        const bid = await placeBid('THB_BTC', amountToBuy, 0, 'market'); // sym, amt, rat, type
-        res.json(bid);
+        const btc = wallet.result.BTC;
+        const buyRatio = process.env.SELL_RATIO;
+        const amountToSell = btc * buyRatio;
+        console.log('amountToSell', amountToSell);
+        const ask = await placeAsk('THB_BTC', amountToSell, 0, 'market'); // sym, amt, rat, type => minimum is 0.0001 BTC
+        res.json(ask);
     } catch (err) {
         console.error(err);
         res.status(500).json({
