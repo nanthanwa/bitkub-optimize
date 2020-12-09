@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
-    const Logs = sequelize.define(
-        'Logs',
+    const TradingViewLogs = sequelize.define(
+        'TradingViewLogs',
         {
             triggerID: {
                 type: Sequelize.INTEGER,
@@ -46,5 +46,5 @@ module.exports = (sequelize, Sequelize) => {
             freezeTableName: true
         }
     );
-    return Logs;
+    return TradingViewLogs;
 };

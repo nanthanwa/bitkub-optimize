@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { signBody } = require('../utils');
 const moment = require('moment');
 const axios = require('axios');
-const { Logs, Sequelize } = require('../databases/bitkub');
+const { TradingViewLogs, TradingLogs, Sequelize } = require('../databases/bitkub');
 const { parseObject, getErrorDescription } = require('../utils');
 
 router.post('/tradingview/btcusd', async (req, res, next) => {
@@ -11,7 +11,7 @@ router.post('/tradingview/btcusd', async (req, res, next) => {
         console.log('body', req.body);
         const obj = parseObject(req.body);
         console.log('obj', obj);
-        await Logs.create({
+        await TradingViewLogs.create({
             timestamp: new Date().toISOString(),
             exchange: obj.Exchange,
             ticker: obj.Ticker,
@@ -87,6 +87,8 @@ router.get('/buy', async (req, res, next) => {
                 message: errMessage
             });
         } else {
+            response.result.ts = response.result.ts * 1000; // emit millisecond
+            await TradingLogs.create(response.result);
             res.json(response.result);
         }
     } catch (err) {
@@ -98,6 +100,46 @@ router.get('/buy', async (req, res, next) => {
 });
 
 router.get('/sell', async (req, res, next) => {
+    try {
+        let body = {
+            sym: 'THB_BTC',
+            amt: 0.0001, // BTC no trailing zero 
+            rat: 600000, // for market order use 0
+            typ: 'limit',
+            ts: moment().unix()
+        };
+        const signedBody = signBody(body);
+        body.sig = signedBody;
+        const response = await axios({
+            method: 'post',
+            url: `${process.env.BITKUB_ROOT_URL}/api/market/place-ask`,
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'X-BTK-APIKEY': `${process.env.API_KEY}`
+            },
+            data: body,
+        }).then(res => res.data);;
+        console.log('response', response);
+        if (response.error !== 0) {
+            const errMessage = getErrorDescription(response.error);
+            console.log('message', errMessage);
+            res.status(500).json({
+                error: response.error,
+                message: errMessage
+            });
+        } else {
+            res.json(response.result);
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            err: err.message
+        });
+    }
+});
+
+router.get('/cancel', async (req, res, next) => {
     try {
         let body = {
             sym: 'THB_BTC',
@@ -154,7 +196,7 @@ router.get('/logs', async (req, res, next) => {
     try {
         const offset = req.query.offset ? parseInt(req.query.offset) : 0;
         const limit = req.query.limit ? parseInt(req.query.limit) : 10;
-        const logs = await Logs.findAll({
+        const logs = await TradingViewLogs.findAll({
             offset: offset,
             limit: limit
         });
@@ -168,7 +210,7 @@ router.get('/logs', async (req, res, next) => {
 
 router.post('/logs', async (req, res, next) => {
     try {
-        const logs = await Logs.create({ timestamp: new Date() });
+        const logs = await TradingViewLogs.create({ timestamp: new Date() });
         await logs.save();
         res.json(logs);
     } catch (err) {

@@ -24,5 +24,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 //import model
-db.Logs = require('../models/logs')(sequelize, Sequelize);
+db.TradingViewLogs = require('../models/TradingViewLogs')(sequelize, Sequelize);
+db.TradingLogs = require('../models/TradingLogs')(sequelize, Sequelize);
 module.exports = db;

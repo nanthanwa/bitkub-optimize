@@ -1,7 +1,6 @@
 require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { Logs, Sequelize } = require('./databases/bitkub');
 const express = require('express');
 const app = express();
 
