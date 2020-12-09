@@ -1,7 +1,7 @@
 # bitkub-optimize
 Node.JS trading bot for [Bitkub.com](https://bitkub.com) using [TradingView](https://tradingview.com) webhook
 
-# Prerequisite
+## Prerequisite
 - TradingView [Pro plan](https://www.tradingview.com/gopro) or above for server-side webhook
 - Setup trigger condition and webhook URL
 
@@ -10,13 +10,13 @@ Example TradingView payload
 side = sell, tf = 4h, exchange = {{exchange}}, ticker = {{ticker}}, open = {{open}}, close = {{close}}, high = {{high}}, low = {{low}}, volume = {{volume}}, timestamp = {{time}}
 ```
 
-# Clone this repository
+## Clone this repository
 `git clone https://github.com/nanmcpe/bitkub-optimize`
 
-# Install dependencies
+## Install dependencies
 `npm install`
 
-# Edit database configuration and other parameters on .env OR docker-compose.yml
+## Edit database configuration and other parameters on .env OR docker-compose.yml
 ```
 NODE_ENV=Development
 API_KEY=<YOUR-API-KEY>
@@ -32,14 +32,14 @@ BUY_RATIO=0.01
 SELL_RATIO=1
 ```
 
-# Build docker image (Optionnal)
+## Build docker image (Optionnal)
 `docker build -t <YOUR-IMAGE-HOST>/bitkub-optimize:latest`
 
-# Push docker image (Optionnal)
+## Push docker image (Optionnal)
 `docker push <YOUR-IMAGE-HOST>/bitkub-optimize:latest`
 
-# Pull docker image (Optionnal)
+## Pull docker image (Optionnal)
 `docker-compose pull`
 
-# Run application
+## Run application
 `node app.js` or `docker-compose up -d`
