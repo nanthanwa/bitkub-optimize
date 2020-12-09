@@ -15,7 +15,7 @@ require('console-stamp')(console, {
 const isProduction = process.env.NODE_ENV === 'Production';
 
 app.use(cors({
-    origin: ['https://nanmcpe.aileensoft.com', 'http://localhost', 'http://localhost:3000'],
+    origin: ['http://localhost', 'http://localhost:3000'],
     optionsSuccessStatus: 200,
     credentials: true,
 }));
