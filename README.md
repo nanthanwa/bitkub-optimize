@@ -15,7 +15,7 @@ Node.JS trading bot for [Bitkub.com](https://bitkub.com) using [TradingView](htt
 - Sell 100% BTC of your available balance when condition is met.
 
 ## Prerequisite
-- TradingView [Pro plan](https://www.tradingview.com/gopro) or above for server-side webhook.
+- TradingView [Pro plan](https://www.tradingview.com/gopro/?share_your_love=ThanwaJindarattana) or above for server-side webhook.
 - Setup trigger condition and webhook URL.
 
 Example TradingView payload
