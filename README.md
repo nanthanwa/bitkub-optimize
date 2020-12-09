@@ -7,6 +7,7 @@ Node.JS trading bot for [Bitkub.com](https://bitkub.com) using [TradingView](htt
 
 ## TODO (PR-Welcomed)
 - Replace moment.js with [date-fns](https://github.com/date-fns/date-fns).
+- Add instant messaging (e.g. Slack, LINE) for notify action.
 - Add stop-limit order feature (waiting for Bitkub releases this API, [see more](https://github.com/bitkub/bitkub-official-api-docs/issues/24)).
 - Add trailing stop order feature (after stop-limit order API is released).
 
