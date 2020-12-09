@@ -129,6 +129,49 @@ function placeBid(symbol, amount, rate, type) {
                 });
             } else {
                 response.result.ts = response.result.ts * 1000; // emit millisecond
+                response.result.side = 'buy';
+                await TradingLogs.create(response.result);
+                resolve(response.result);
+            }
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+function placeAsk(symbol, amount, rate, type) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let body = {
+                sym: symbol,
+                amt: amount, // BTC no trailing zero 
+                rat: rate, // for market order use 0
+                typ: type,
+                ts: moment().unix()
+            };
+            const signedBody = signBody(body);
+            body.sig = signedBody;
+            const response = await axios({
+                method: 'post',
+                url: `${process.env.BITKUB_ROOT_URL}/api/market/place-ask`,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json',
+                    'X-BTK-APIKEY': `${process.env.API_KEY}`
+                },
+                data: body,
+            }).then(res => res.data);;
+            console.log('response', response);
+            if (response.error !== 0) {
+                const errMessage = getErrorDescription(response.error);
+                console.log('message', errMessage);
+                reject({
+                    error: response.error,
+                    message: errMessage
+                });
+            } else {
+                response.result.ts = response.result.ts * 1000; // emit millisecond
+                response.result.side = 'sell';
                 await TradingLogs.create(response.result);
                 resolve(response.result);
             }
@@ -144,4 +187,5 @@ module.exports = {
     signBody,
     getWallet,
     placeBid,
+    placeAsk,
 };

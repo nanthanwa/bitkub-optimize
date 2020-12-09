@@ -3,7 +3,7 @@ const { signBody } = require('../utils');
 const moment = require('moment');
 const axios = require('axios');
 const { TradingViewLogs, TradingLogs, Sequelize } = require('../databases/bitkub');
-const { parseObject, getErrorDescription, getWallet, placeBid } = require('../utils');
+const { parseObject, getErrorDescription, getWallet, placeBid, placeAsk } = require('../utils');
 
 router.post('/tradingview/btcusd', async (req, res, next) => {
     try {
@@ -47,6 +47,23 @@ router.post('/test/buy', async (req, res, next) => {
     }
 });
 
+router.post('/test/sell', async (req, res, next) => {
+    try {
+        const wallet = await getWallet();
+        const thb = wallet.result.THB;
+        const buyRatio = process.env.BUY_RATIO;
+        const amountToBuy = parseFloat((thb * buyRatio).toFixed(2));
+        console.log('amountToBuy', amountToBuy);
+        const bid = await placeBid('THB_BTC', amountToBuy, 0, 'market'); // sym, amt, rat, type
+        res.json(bid);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            err: err.message
+        });
+    }
+});
+
 router.get('/wallet', async (req, res, next) => {
     try {
         const response = await getWallet();
@@ -73,38 +90,8 @@ router.post('/buy', async (req, res, next) => {
 
 router.post('/sell', async (req, res, next) => {
     try {
-        let body = {
-            sym: 'THB_BTC',
-            amt: 0.0001, // BTC no trailing zero 
-            rat: 600000, // for market order use 0
-            typ: 'limit',
-            ts: moment().unix()
-        };
-        const signedBody = signBody(body);
-        body.sig = signedBody;
-        const response = await axios({
-            method: 'post',
-            url: `${process.env.BITKUB_ROOT_URL}/api/market/place-ask`,
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json',
-                'X-BTK-APIKEY': `${process.env.API_KEY}`
-            },
-            data: body,
-        }).then(res => res.data);;
-        console.log('response', response);
-        if (response.error !== 0) {
-            const errMessage = getErrorDescription(response.error);
-            console.log('message', errMessage);
-            res.status(500).json({
-                error: response.error,
-                message: errMessage
-            });
-        } else {
-            response.result.ts = response.result.ts * 1000; // emit millisecond
-            await TradingLogs.create(response.result);
-            res.json(response.result);
-        }
+        const response = await placeAsk('THB_BTC', 0.0001, 0, 'market');
+        res.json(response);
     } catch (err) {
         console.error(err);
         res.status(500).json({
