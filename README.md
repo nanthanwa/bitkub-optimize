@@ -29,13 +29,13 @@ For more infomation, please see [About webhooks](https://www.tradingview.com/cha
 TradingView only accept URLs with port numbers 80 and 443.
 
 ```
-sudo ufw allow from 52.89.214.238 to any port 443
-sudo ufw allow from 34.212.75.30 to any port 443
-sudo ufw allow from 54.218.53.128 to any port 443
-sudo ufw allow from 52.32.178.7 to any port 443
+# ufw allow from 52.89.214.238 to any port 443
+# ufw allow from 34.212.75.30 to any port 443
+# ufw allow from 54.218.53.128 to any port 443
+# ufw allow from 52.32.178.7 to any port 443
 ```
 
-## Edit database configuration and other parameters on .env OR docker-compose.yml
+## Edit database configuration and other parameters on .env
 ```
 NODE_ENV=Development
 API_KEY=<YOUR-API-KEY>
@@ -51,13 +51,17 @@ BUY_RATIO=0.01
 SELL_RATIO=1
 ```
 
-## Build docker image (Optional)
+## Import database
+`$ mysql -u <user> -p bitkub < database.sql`
+
+## Dockerize (Optional)
+### Build docker image
 `docker build -t <YOUR-IMAGE-HOST>/bitkub-optimize:latest`
 
-## Push docker image (Optional)
+### Push docker image
 `docker push <YOUR-IMAGE-HOST>/bitkub-optimize:latest`
 
-## Pull docker image (Optional)
+### Pull docker image
 `docker-compose pull`
 
 ## Run application
