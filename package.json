@@ -4,6 +4,7 @@
   "description": "RESTful API client for Bitkub.com",
   "main": "app.js",
   "dependencies": {
+    "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "console-stamp": "^0.2.9",
     "cors": "^2.8.5",

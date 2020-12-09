@@ -1,4 +1,6 @@
 const moment = require('moment');
+const axios = require('axios');
+const crypto = require("crypto");
 
 function parseObject(text) {
     let obj = {};
@@ -16,6 +18,14 @@ function parseObject(text) {
     return obj;
 }
 
+function signBody(body) {
+    const digest = crypto.createHmac('sha256', process.env.API_SECRET)
+        .update(JSON.stringify(body))
+        .digest('hex');
+    return digest;
+}
+
 module.exports = {
-    parseObject
+    parseObject,
+    signBody
 };

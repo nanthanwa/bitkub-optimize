@@ -1,5 +1,7 @@
 const router = require('express').Router();
-
+const { signBody } = require('../utils');
+const moment = require('moment');
+const axios = require('axios');
 const { Logs, Sequelize } = require('../databases/bitkub');
 const { parseObject } = require('../utils');
 
@@ -20,6 +22,33 @@ router.post('/tradingview/btcusd', async (req, res, next) => {
             volume: obj.Volume,
         });
         res.sendStatus(200);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            err: err.message
+        });
+    }
+});
+
+router.get('/wallet', async (req, res, next) => {
+    try {
+        let body = {
+            ts: moment().unix()
+        };
+        const signedBody = signBody(body);
+        body.sig = signedBody;
+        const response = await axios({
+            method: 'post',
+            url: `${process.env.BITKUB_ROOT_URL}/api/market/balances`,
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'X-BTK-APIKEY': `${process.env.API_KEY}`
+            },
+            data: body,
+        }).then(res => res.data);;
+        console.log('response', response);
+        res.json(response);
     } catch (err) {
         console.error(err);
         res.status(500).json({
