@@ -1,6 +1,8 @@
 # bitkub-optimize
 Node.JS trading bot for [Bitkub.com](https://bitkub.com) using [TradingView](https://tradingview.com) webhook.
 
+![](https://smartadvicefordumbmillennials.com/wp-content/uploads/2017/10/wolf_of_wall_street_money.gif)
+
 ## TODO (PR-Welcomed)
 - Replace moment.js with [date-fns](https://github.com/date-fns/date-fns).
 - Add stop-limit order feature (waiting for Bitkub releases this API, [see more](https://github.com/bitkub/bitkub-official-api-docs/issues/24)).
