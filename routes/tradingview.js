@@ -39,40 +39,6 @@ router.post('/tradingview/btcusd', async (req, res, next) => {
     }
 });
 
-router.post('/test/buy', async (req, res, next) => {
-    try {
-        const wallet = await getWallet();
-        const thb = wallet.result.THB;
-        const buyRatio = process.env.BUY_RATIO;
-        const amountToBuy = parseFloat((thb * buyRatio).toFixed(2));
-        console.log('amountToBuy', amountToBuy);
-        const bid = await placeBid('THB_BTC', amountToBuy, 0, 'market'); // sym, amt, rat, type
-        res.json(bid);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            err: err.message
-        });
-    }
-});
-
-router.post('/test/sell', async (req, res, next) => {
-    try {
-        const wallet = await getWallet();
-        const btc = wallet.result.BTC;
-        const buyRatio = parseFloat(process.env.SELL_RATIO);
-        const amountToSell = btc * buyRatio;
-        console.log('amountToSell', amountToSell);
-        const ask = await placeAsk('THB_BTC', amountToSell, 0, 'market'); // sym, amt, rat, type => minimum is 0.0001 BTC
-        res.json(ask);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            err: err.message
-        });
-    }
-});
-
 router.get('/wallet', async (req, res, next) => {
     try {
         const response = await getWallet();
