@@ -90,7 +90,7 @@ router.post('/buy', async (req, res, next) => {
 
 router.post('/sell', async (req, res, next) => {
     try {
-        const response = await placeAsk('THB_BTC', 0.0001, 0, 'market');
+        const response = await placeAsk('THB_BTC', 0.0001, 600000, 'limit');
         res.json(response);
     } catch (err) {
         console.error(err);

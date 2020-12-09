@@ -130,6 +130,7 @@ function placeBid(symbol, amount, rate, type) {
             } else {
                 response.result.ts = response.result.ts * 1000; // emit millisecond
                 response.result.side = 'buy';
+                response.result.sym = symbol;
                 await TradingLogs.create(response.result);
                 resolve(response.result);
             }
@@ -172,6 +173,7 @@ function placeAsk(symbol, amount, rate, type) {
             } else {
                 response.result.ts = response.result.ts * 1000; // emit millisecond
                 response.result.side = 'sell';
+                response.result.sym = symbol;
                 await TradingLogs.create(response.result);
                 resolve(response.result);
             }
