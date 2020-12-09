@@ -81,3 +81,7 @@ SELL_RATIO=1
 
 ## Run application
 `node app.js` or `docker-compose up -d`
+
+#### If you guys like this project, feel free to give me some coffee ☕️
+- BTC: 3NkbtCeykMvAX32rAd14h3pBstHZ47RaNb
+- ETH: 0xc0430624d2e04a2d5e393554904ebefca39b48ca
