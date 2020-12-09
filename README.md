@@ -28,6 +28,13 @@ For more infomation, please see [About webhooks](https://www.tradingview.com/cha
 ```
 TradingView only accept URLs with port numbers 80 and 443.
 
+```
+sudo ufw allow from 52.89.214.238 to any port 443
+sudo ufw allow from 34.212.75.30 to any port 443
+sudo ufw allow from 54.218.53.128 to any port 443
+sudo ufw allow from 52.32.178.7 to any port 443
+```
+
 ## Edit database configuration and other parameters on .env OR docker-compose.yml
 ```
 NODE_ENV=Development
