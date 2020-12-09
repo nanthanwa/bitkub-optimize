@@ -7,11 +7,29 @@ const { parseObject, getErrorDescription, getWallet, placeBid, placeAsk } = requ
 
 router.post('/tradingview/btcusd', async (req, res, next) => {
     try {
-        console.log('TradingView has hooked [BTCUSD]');
+        console.log('TradingView has hooked');
         console.log('body', req.body);
         const obj = parseObject(req.body);
         console.log('obj', obj);
         await TradingViewLogs.create(obj);
+        if (obj.side === 'buy') {
+            const wallet = await getWallet();
+            const thb = wallet.result.THB;
+            const buyRatio = parseFloat(process.env.BUY_RATIO);
+            const amountToBuy = parseFloat((thb * buyRatio).toFixed(2));
+            console.log('amountToBuy', amountToBuy);
+            const bid = await placeBid('THB_BTC', amountToBuy, 0, 'market'); // sym, amt, rat, type
+            console.log('bid', bid);
+        }
+        if (obj.side === 'sell') {
+            const wallet = await getWallet();
+            const btc = wallet.result.BTC;
+            const buyRatio = parseFloat(process.env.SELL_RATIO);
+            const amountToSell = btc * buyRatio;
+            console.log('amountToSell', amountToSell);
+            const ask = await placeAsk('THB_BTC', amountToSell, 0, 'market'); // sym, amt, rat, type => minimum is 0.0001 BTC
+            console.log('ask', ask);
+        }
         res.sendStatus(200);
     } catch (err) {
         console.error(err);
@@ -42,7 +60,7 @@ router.post('/test/sell', async (req, res, next) => {
     try {
         const wallet = await getWallet();
         const btc = wallet.result.BTC;
-        const buyRatio = process.env.SELL_RATIO;
+        const buyRatio = parseFloat(process.env.SELL_RATIO);
         const amountToSell = btc * buyRatio;
         console.log('amountToSell', amountToSell);
         const ask = await placeAsk('THB_BTC', amountToSell, 0, 'market'); // sym, amt, rat, type => minimum is 0.0001 BTC
@@ -135,34 +153,6 @@ router.get('/hello', async (req, res, next) => {
         });
     } catch (err) {
         console.error(err);
-        res.status(500).json({
-            err: err.message
-        });
-    }
-});
-
-router.get('/logs', async (req, res, next) => {
-    try {
-        const offset = req.query.offset ? parseInt(req.query.offset) : 0;
-        const limit = req.query.limit ? parseInt(req.query.limit) : 10;
-        const logs = await TradingViewLogs.findAll({
-            offset: offset,
-            limit: limit
-        });
-        res.json(logs);
-    } catch (err) {
-        res.status(500).json({
-            err: err.message
-        });
-    }
-});
-
-router.post('/logs', async (req, res, next) => {
-    try {
-        const logs = await TradingViewLogs.create({ timestamp: new Date() });
-        await logs.save();
-        res.json(logs);
-    } catch (err) {
         res.status(500).json({
             err: err.message
         });
