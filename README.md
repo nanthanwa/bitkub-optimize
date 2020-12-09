@@ -1,6 +1,11 @@
 # bitkub-optimize
 Node.JS trading bot for [Bitkub.com](https://bitkub.com) using [TradingView](https://tradingview.com) webhook
 
+## TODO
+- Replace moment.js with [date-fns](https://github.com/date-fns/date-fns)
+- Add stop-limit order feature (waiting for Bitkub releases this API, [see more](https://github.com/bitkub/bitkub-official-api-docs/issues/24))
+- Add trailing stop order feature (after stop-limit order API is released)
+
 ## Strategy (configurable)
 - Buy BTC using 90% of THB on your available balance when condition is met
 - Sell 100% BTC of your available balance when condition is met
