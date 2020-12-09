@@ -11,8 +11,12 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.STRING,
                 field: 'Hash'
             },
+            side: {
+                type: Sequelize.ENUM('buy', 'sell'),
+                field: 'Side'
+            },
             typ: {
-                type: Sequelize.STRING,
+                type: Sequelize.ENUM('limit', 'market'),
                 field: 'Type'
             },
             amt: {
