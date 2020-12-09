@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  bitkub-optimize:
+    image: <YOUR-IMAGE-HOST>/bitkub-optimize:latest
+    container_name: bitkub-optimize
+    build: .
+    environment:
+      - NODE_ENV=Production
+      - TZ=Asia/Bangkok
+      - API_KEY=<YOUR-API-KEY>
+      - API_SECRET=<YOUR-API-SECRET>
+      - DB_SQL_HOST=<YOUR-DATABASE-HOST>
+      - DB_SQL_PORT=3306
+      - DB_SQL_DB=<YOUR-DATABASE-NAME>
+      - DB_SQL_USER=<YOUR-DATABASE-USER>
+      - DB_SQL_PASS=<YOUR-DATABASE-PASS>
+      - SERVER_PORT=3000
+      - BITKUB_ROOT_URL=https://api.bitkub.com
+      - BUY_RATIO=0.9
+      - SELL_RATIO=1
+    networks:
+      internal-network:
+        ipv4_address: 172.50.0.2
+    restart: always
+
+# proxy_pass from nginx to this network
+networks:
+  internal-network:
+    external:
+      name: internal-network
