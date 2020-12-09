@@ -16,6 +16,17 @@ side = sell, tf = 4h, exchange = {{exchange}}, ticker = {{ticker}}, open = {{ope
 ## Install dependencies
 `npm install`
 
+## Setup firewall (Recommended)
+We allow incomming traffic from trusted source only
+Here is a list of IP addresses that we need to receive POST requests
+```
+52.89.214.238
+34.212.75.30
+54.218.53.128
+52.32.178.7
+```
+TradingView only accept URLs with port numbers 80 and 443.
+
 ## Edit database configuration and other parameters on .env OR docker-compose.yml
 ```
 NODE_ENV=Development
