@@ -1,18 +1,20 @@
 # bitkub-optimize
-Node.JS trading bot for [Bitkub.com](https://bitkub.com) using [TradingView](https://tradingview.com) webhook
+Node.JS trading bot for [Bitkub.com](https://bitkub.com) using [TradingView](https://tradingview.com) webhook.
 
 ## TODO
-- Replace moment.js with [date-fns](https://github.com/date-fns/date-fns)
-- Add stop-limit order feature (waiting for Bitkub releases this API, [see more](https://github.com/bitkub/bitkub-official-api-docs/issues/24))
-- Add trailing stop order feature (after stop-limit order API is released)
+- Replace moment.js with [date-fns](https://github.com/date-fns/date-fns).
+- Add stop-limit order feature (waiting for Bitkub releases this API, [see more](https://github.com/bitkub/bitkub-official-api-docs/issues/24)).
+- Add trailing stop order feature (after stop-limit order API is released).
 
-## Strategy (configurable)
-- Buy BTC using 90% of THB on your available balance when condition is met
-- Sell 100% BTC of your available balance when condition is met
+## Strategy
+- Buying or selling signals will be triggered from TradingView, we should setup at TradingView side. 
+### This is some strategies that we can configurable
+- Buy BTC using 90% of THB on your available balance when condition is met.
+- Sell 100% BTC of your available balance when condition is met.
 
 ## Prerequisite
-- TradingView [Pro plan](https://www.tradingview.com/gopro) or above for server-side webhook
-- Setup trigger condition and webhook URL
+- TradingView [Pro plan](https://www.tradingview.com/gopro) or above for server-side webhook.
+- Setup trigger condition and webhook URL.
 
 Example TradingView payload
 ```
@@ -26,9 +28,9 @@ side = sell, tf = 4h, exchange = {{exchange}}, ticker = {{ticker}}, open = {{ope
 `npm install`
 
 ## Setup firewall (Recommended)
-We allow incomming traffic from trusted source only
+We allow incomming traffic from trusted source only.
 Here is a list of IP addresses that we need to receive POST requests.
-For more infomation, please see [About webhooks](https://www.tradingview.com/chart/?solution=43000529348)
+For more infomation, please see [About webhooks](https://www.tradingview.com/chart/?solution=43000529348).
 ```
 52.89.214.238
 34.212.75.30
