@@ -3,6 +3,8 @@
 
 Node.JS trading bot for [Bitkub.com](https://bitkub.com) using [TradingView](https://tradingview.com) webhook.
 
+This application is based on [bitkub-official-api-docs](https://github.com/bitkub/bitkub-official-api-docs)
+
 ![](https://smartadvicefordumbmillennials.com/wp-content/uploads/2017/10/wolf_of_wall_street_money.gif)
 
 ## TODO (PR-Welcomed)
@@ -14,8 +16,8 @@ Node.JS trading bot for [Bitkub.com](https://bitkub.com) using [TradingView](htt
 ## Strategy
 - Buying or selling signals will be triggered from TradingView, we should setup at TradingView side. 
 #### This is some strategies that we can configurable
-- Buy BTC using 90% of THB on your available balance when condition is met.
-- Sell 100% BTC of your available balance when condition is met.
+- Buy BTC using 90% of THB on your available balance at market price when condition is met.
+- Sell 100% BTC of your available balance at market price when condition is met.
 
 ## Prerequisite
 - TradingView [Pro plan](https://www.tradingview.com/gopro/?share_your_love=ThanwaJindarattana) or above for server-side webhook.
