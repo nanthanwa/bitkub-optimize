@@ -49,7 +49,6 @@ CREATE TABLE `log_trading` (
 
 CREATE TABLE `log_tradingview` (
   `ID` int(11) NOT NULL,
-  `Timestamp` datetime NOT NULL,
   `Exchange` varchar(10) NOT NULL,
   `Ticker` varchar(10) NOT NULL,
   `Timeframe` enum('4h','6h','8h','12h','1d') NOT NULL,
@@ -58,7 +57,8 @@ CREATE TABLE `log_tradingview` (
   `Close` float NOT NULL,
   `High` float NOT NULL,
   `Low` float NOT NULL,
-  `Volume` float NOT NULL
+  `Volume` float NOT NULL,
+  `Timestamp` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
