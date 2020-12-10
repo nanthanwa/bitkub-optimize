@@ -1,6 +1,6 @@
 {
   "name": "bitkub-optimize",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Node.JS trading bot for Bitkub.com using TradingView webhook",
   "main": "app.js",
   "dependencies": {
