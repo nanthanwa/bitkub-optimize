@@ -16,6 +16,7 @@ services:
       - DB_SQL_PASS=<YOUR-DATABASE-PASS>
       - SERVER_PORT=3000
       - BITKUB_ROOT_URL=https://api.bitkub.com
+      - LINE_TOKEN=<YOUR-LINE-TOKEN>
       - BUY_RATIO=0.9
       - SELL_RATIO=1
     networks:
