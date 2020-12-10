@@ -1,10 +1,7 @@
 const router = require('express').Router();
-const { signBody } = require('../utils');
 const { LINE } = require('../utils/LINE');
-const moment = require('moment');
-const axios = require('axios');
 const { TradingViewLogs } = require('../databases/bitkub');
-const { parseObject, getErrorDescription, getWallet, placeBid, placeAsk } = require('../utils');
+const { parseObject, getWallet, placeBid, placeAsk, cancelOrder } = require('../utils');
 
 router.post('/tradingview/btcusd', async (req, res, next) => {
     try {
@@ -90,33 +87,10 @@ router.post('/sell', async (req, res, next) => {
 
 router.post('/cancel', async (req, res, next) => {
     try {
-        let body = {
-            hash: 'fwQ6dnQYKnqB17qriRcuwRmhYVR',
-            ts: moment().unix()
-        };
-        const signedBody = signBody(body);
-        body.sig = signedBody;
-        const response = await axios({
-            method: 'post',
-            url: `${process.env.BITKUB_ROOT_URL}/api/market/cancel-order`,
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json',
-                'X-BTK-APIKEY': `${process.env.API_KEY}`
-            },
-            data: body,
-        }).then(res => res.data);
-        console.log('response', response);
-        if (response.error !== 0) {
-            const errMessage = getErrorDescription(response.error);
-            console.log('message', errMessage);
-            res.status(500).json({
-                error: response.error,
-                message: errMessage
-            });
-        } else {
-            res.json({ msg: success }); // no response payload from Bitkub's server
-        }
+        const hash = 'fwQ6dnQYKnqB17qriRcuwRmhYVR';
+        await cancelOrder(hash);
+        LINE(`Cancel order: ${hash}`);
+        res.json(response);
     } catch (err) {
         console.error(err);
         res.status(500).json({

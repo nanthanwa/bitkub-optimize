@@ -1,7 +1,7 @@
-const moment = require('moment');
 const axios = require('axios');
 const crypto = require("crypto");
-const { TradingViewLogs, TradingLogs, Sequelize } = require('../databases/bitkub');
+const { TradingLogs } = require('../databases/bitkub');
+const { getTime } = require('date-fns');
 
 function parseObject(text) {
     let obj = {};
@@ -11,7 +11,7 @@ function parseObject(text) {
         if (key === 'volume' || key === 'open' || key === 'high' || key === 'low' || key === 'close') {
             obj[key] = parseFloat(value);
         } else if (key === 'timestamp') {
-            obj[key] = moment(value);
+            obj[key] = new Date(value);
         } else {
             obj[key] = value;
         }
@@ -75,7 +75,7 @@ function getWallet() {
     return new Promise(async (resolve, reject) => {
         try {
             let body = {
-                ts: moment().unix()
+                ts: Math.floor(getTime(new Date()) / 1000)
             };
             const signedBody = signBody(body);
             body.sig = signedBody;
@@ -105,7 +105,7 @@ function placeBid(symbol, amount, rate, type) {
                 amt: amount, // THB no trailing zero 
                 rat: rate, // for market order use 0
                 typ: type,
-                ts: moment().unix()
+                ts: Math.floor(getTime(new Date()) / 1000)
             };
             const signedBody = signBody(body);
             body.sig = signedBody;
@@ -148,7 +148,7 @@ function placeAsk(symbol, amount, rate, type) {
                 amt: amount, // BTC no trailing zero 
                 rat: rate, // for market order use 0
                 typ: type,
-                ts: moment().unix()
+                ts: Math.floor(getTime(new Date()) / 1000)
             };
             const signedBody = signBody(body);
             body.sig = signedBody;
@@ -183,6 +183,42 @@ function placeAsk(symbol, amount, rate, type) {
     });
 }
 
+function cancelOrder(hash) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let body = {
+                hash: hash,
+                ts: Math.floor(getTime(new Date()) / 1000),
+            };
+            const signedBody = signBody(body);
+            body.sig = signedBody;
+            const response = await axios({
+                method: 'post',
+                url: `${process.env.BITKUB_ROOT_URL}/api/market/cancel-order`,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json',
+                    'X-BTK-APIKEY': `${process.env.API_KEY}`
+                },
+                data: body,
+            }).then(res => res.data);
+            console.log('response', response);
+            if (response.error !== 0) {
+                const errMessage = getErrorDescription(response.error);
+                console.log('message', errMessage);
+                reject({
+                    error: response.error,
+                    message: errMessage
+                });
+            } else {
+                resolve({ msg: 'success' }); // no response payload from Bitkub's server
+            }
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
 module.exports = {
     parseObject,
     getErrorDescription,
@@ -190,4 +226,5 @@ module.exports = {
     getWallet,
     placeBid,
     placeAsk,
+    cancelOrder,
 };

@@ -41,7 +41,7 @@ app.listen(process.env.SERVER_PORT || 3000, async () => {
         await sequelize.authenticate();
         console.log('Database connection has been established successfully.');
         console.log(`Server has started at port ${process.env.SERVER_PORT}`);
-        LINE(`Server has started at port ${process.env.SERVER_PORT}`);
+        if (isProduction) LINE(`Server has started at port ${process.env.SERVER_PORT}`);
     } catch (error) {
         console.error('Unable to connect to the database:', error);
         process.exit(1);
