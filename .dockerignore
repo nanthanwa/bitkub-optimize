@@ -5,3 +5,9 @@ docker-compose.yml
 database.sql
 .gitignore
 .Dockerfile
+.github
+.dockerignore
+README.md
+LICENSE
+Dockerfile
+CODE_OF_CONDUCT.md
