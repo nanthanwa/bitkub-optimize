@@ -7,11 +7,17 @@ This application is based on [bitkub-official-api-docs](https://github.com/bitku
 
 ![](https://smartadvicefordumbmillennials.com/wp-content/uploads/2017/10/wolf_of_wall_street_money.gif)
 
-## TODO (PR-Welcomed)
+## Features
+- Buy or Sell Bitcoin when received webhook from TradingView.
+- Records transaction to self-managed database.
+- Notify trading transactions with LINE (need to [register](https://notify-bot.line.me/)).
+
+## TODOs (PR-Welcomed)
 - Replace moment.js with [date-fns](https://github.com/date-fns/date-fns).
-- Add instant messaging (e.g. Slack, LINE) for notify action.
+- Add other instant messaging (e.g. Slack) for notify action.
 - Add stop-limit order feature (waiting for Bitkub releases this API, [see more](https://github.com/bitkub/bitkub-official-api-docs/issues/24)).
 - Add trailing stop order feature (after stop-limit order API is released).
+- Design a web dashboard for visualize profit and loss.
 
 ## Strategy
 - Buying or selling signals will be triggered from TradingView, we should setup at TradingView side. 
