@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 const { sequelize } = require('./databases/bitkub');
 const morgan = require('morgan');
+const { LINE } = require('./utils/LINE');
 
 require('console-stamp')(console, {
     pattern: 'dd/mm/yyyy HH:MM:ss.l',
@@ -40,6 +41,7 @@ app.listen(process.env.SERVER_PORT || 3000, async () => {
         await sequelize.authenticate();
         console.log('Database connection has been established successfully.');
         console.log(`Server has started at port ${process.env.SERVER_PORT}`);
+        LINE(`Server has started at port ${process.env.SERVER_PORT}`);
     } catch (error) {
         console.error('Unable to connect to the database:', error);
         process.exit(1);

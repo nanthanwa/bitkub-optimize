@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { signBody } = require('../utils');
+const { LINE } = require('../utils/LINE');
 const moment = require('moment');
 const axios = require('axios');
 const { TradingViewLogs } = require('../databases/bitkub');
@@ -20,6 +21,7 @@ router.post('/tradingview/btcusd', async (req, res, next) => {
             console.log('amountToBuy', amountToBuy);
             const bid = await placeBid('THB_BTC', amountToBuy, 0, 'market'); // sym, amt, rat, type
             console.log('bid', bid);
+            LINE(`Buy ${amountToBuy} BTC @ ${obj.close}`);
         }
         if (obj.side === 'sell') {
             const wallet = await getWallet();
@@ -29,6 +31,7 @@ router.post('/tradingview/btcusd', async (req, res, next) => {
             console.log('amountToSell', amountToSell);
             const ask = await placeAsk('THB_BTC', amountToSell, 0, 'market'); // sym, amt, rat, type => minimum is 0.0001 BTC
             console.log('ask', ask);
+            LINE(`Sell ${amountToSell} BTC @ ${obj.close}`);
         }
         res.sendStatus(200);
     } catch (err) {
@@ -53,7 +56,12 @@ router.get('/wallet', async (req, res, next) => {
 
 router.post('/buy', async (req, res, next) => {
     try {
-        const response = await placeBid('THB_BTC', 40, 2.5, 'limit'); // sym, amt, rat, type
+        const symbol = 'THB_BTC';
+        const amount = 40;
+        const rate = 2.5;
+        const type = 'limit';
+        const response = await placeBid(symbol, amount, rate, type);
+        LINE(`Buy ${amount} BTC @ ${rate}`);
         res.json(response);
     } catch (err) {
         console.error(err);
@@ -65,7 +73,12 @@ router.post('/buy', async (req, res, next) => {
 
 router.post('/sell', async (req, res, next) => {
     try {
-        const response = await placeAsk('THB_BTC', 0.0001, 600000, 'limit');
+        const symbol = 'THB_BTC';
+        const amount = 0001;
+        const rate = 600000;
+        const type = 'limit';
+        const response = await placeAsk(symbol, amount, rate, type);
+        LINE(`Sell ${amount} BTC @ ${rate}`);
         res.json(response);
     } catch (err) {
         console.error(err);
@@ -92,7 +105,7 @@ router.post('/cancel', async (req, res, next) => {
                 'X-BTK-APIKEY': `${process.env.API_KEY}`
             },
             data: body,
-        }).then(res => res.data);;
+        }).then(res => res.data);
         console.log('response', response);
         if (response.error !== 0) {
             const errMessage = getErrorDescription(response.error);
