@@ -13,11 +13,11 @@ This application is based on [bitkub-official-api-docs](https://github.com/bitku
 - Notify trading transactions with LINE (need to [register](https://notify-bot.line.me/)).
 
 ## TODOs (PR-Welcomed)
-- [DONE ✅] Replace moment.js with [date-fns](https://github.com/date-fns/date-fns).
-- Add other instant messaging (e.g. Slack) for notify action.
-- Add stop-limit order feature (waiting for Bitkub releases this API, [see more](https://github.com/bitkub/bitkub-official-api-docs/issues/24)).
-- Add trailing stop order feature (after stop-limit order API is released).
-- Design a web dashboard for visualize profit and loss.
+- ✅  Replace moment.js with [date-fns](https://github.com/date-fns/date-fns).
+- ⏰  Add other instant messaging (e.g. Slack) for notify action.
+- ⏰  Add stop-limit order feature (waiting for Bitkub releases this API, [see more](https://github.com/bitkub/bitkub-official-api-docs/issues/24)).
+- ⏰  Add trailing stop order feature (after stop-limit order API is released).
+- ⏰  Design a web dashboard for visualize profit and loss.
 
 ## Strategy
 - Buying or selling signals will be triggered from TradingView, we should setup at TradingView side. 
