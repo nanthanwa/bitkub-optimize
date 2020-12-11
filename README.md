@@ -92,6 +92,24 @@ SELL_RATIO=1
 ## Run application
 `node app.js` or `docker-compose up -d`
 
+## Appendix
+### nginx.conf
+```
+location / {
+    proxy_pass              http://172.50.0.2:3000/; # IP of docker container
+    proxy_http_version      1.1;
+    proxy_set_header        Upgrade $http_upgrade;
+    proxy_set_header        Connection 'upgrade';
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+    proxy_set_header        X-Real-IP $remote_addr; # Add this header to get real remote IP
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_cache_bypass      $http_upgrade;
+}
+```
+### Certbot
+If you use [Certbot](https://certbot.eff.org/) to renew the SSL certificate, you need to change from `HTTP challenge` to `DNS challenge` because we only whitelist from TradingView so Certbot task will fail
+
 #### If you guys like this project, feel free to give me some coffee ☕️
 - BTC: 3NkbtCeykMvAX32rAd14h3pBstHZ47RaNb
 - ETH: 0xc0430624d2e04a2d5e393554904ebefca39b48ca
