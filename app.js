@@ -2,6 +2,7 @@ require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const express = require('express');
+const { format } = require('date-fns');
 const app = express();
 const { sequelize } = require('./databases/bitkub');
 const morgan = require('morgan');
@@ -19,8 +20,9 @@ const isProduction = process.env.NODE_ENV === 'Production';
 
 if (isProduction) {
     // Normal express config defaults
+    morgan.token('datetime', () => format(new Date(), 'dd/MM/yyyy HH:mm:ss.SSS'));
     morgan.token('remoteIP', (req) => req.headers['x-forwarded-for']);  // for display real host instead of container host, need to add more header in nginx
-    app.use(morgan(':method :url :remoteIP :status :response-time ms - :res[content-length]'));
+    app.use(morgan('[:datetime] [:method]    :url :remoteIP :status :response-time ms - :res[content-length]'));
 } else {
     app.use(cors({
         origin: ['http://localhost', 'http://localhost:3000'],
