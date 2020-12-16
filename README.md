@@ -9,21 +9,21 @@ This application is based on [bitkub-official-api-docs](https://github.com/bitku
 
 ## Features
 - Buy or Sell Bitcoin when received webhook from TradingView.
-- Records transaction to self-managed database.
+- Records transactions to the self-managed database.
 - Notify trading transactions with LINE (need to [register](https://notify-bot.line.me/)).
 
 ## TODOs (PR-Welcomed)
 - ✅  Replace moment.js with [date-fns](https://github.com/date-fns/date-fns).
 - ⏰  Add other instant messaging (e.g. Slack) for notify action.
-- ⏰  Add stop-limit order feature (waiting for Bitkub releases this API, [see more](https://github.com/bitkub/bitkub-official-api-docs/issues/24)).
+- ⏰  Add stop-limit order feature (waiting for Bitkub to release this API, [see more](https://github.com/bitkub/bitkub-official-api-docs/issues/24)).
 - ⏰  Add trailing stop order feature (after stop-limit order API is released).
-- ⏰  Design a web dashboard for visualize profit and loss.
+- ⏰  Design a web dashboard to visualize profit and loss.
 
 ## Strategy
-- Buying or selling signals will be triggered from TradingView, we should setup at TradingView side. 
-#### This is some strategies that we can configurable
-- Buy BTC using 90% of THB on your available balance at market price when condition is met.
-- Sell 100% BTC of your available balance at market price when condition is met.
+- Buying or selling signals will be triggered from TradingView, we should set up at TradingView side. 
+#### These are some strategies that we can configurable
+- Buy BTC using 90% off THB on your available balance at market price when the condition is met.
+- Sell 100% BTC of your available balance at market price when the condition is met.
 
 ## Prerequisite
 - TradingView [Pro plan](https://www.tradingview.com/gopro/?share_your_love=ThanwaJindarattana) or above for server-side webhook.
@@ -41,16 +41,16 @@ side = sell, tf = 4h, exchange = {{exchange}}, ticker = {{ticker}}, open = {{ope
 `npm install`
 
 ## Setup firewall (Recommended)
-We allow incomming traffic from trusted source only.
+We allow incoming traffic from trusted sources only.
 Here is a list of IP addresses that we need to receive POST requests.
-For more infomation, please see [About webhooks](https://www.tradingview.com/chart/?solution=43000529348).
+For more information, please see [About webhooks](https://www.tradingview.com/chart/?solution=43000529348).
 ```
 52.89.214.238
 34.212.75.30
 54.218.53.128
 52.32.178.7
 ```
-TradingView only accept URLs with port numbers 80 and 443.
+TradingView only accepts URLs with port numbers 80 and 443.
 
 ```
 # ufw allow from 52.89.214.238 to any port 443
@@ -108,7 +108,7 @@ location / {
 }
 ```
 ### Certbot
-If you use [Certbot](https://certbot.eff.org/) to renew the SSL certificate, you need to change from `HTTP challenge` to `DNS challenge` because we only whitelist from TradingView so Certbot task will fail
+If you use [Certbot](https://certbot.eff.org/) to renew the SSL certificate, you need to change from `HTTP challenge` to `DNS challenge` because we only whitelist from TradingView so the Certbot task will fail
 
 #### If you guys like this project, feel free to give me some coffee ☕️
 - BTC: 3NkbtCeykMvAX32rAd14h3pBstHZ47RaNb
