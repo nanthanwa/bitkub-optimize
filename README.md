@@ -21,7 +21,7 @@ This application is based on [bitkub-official-api-docs](https://github.com/bitku
 
 ## Strategy
 - Buying or selling signals will be triggered from TradingView, we should set up at TradingView side. 
-#### These are some strategies that we can configurable
+#### These are some strategies that configurable
 - Buy BTC using 90% off THB on your available balance at market price when the condition is met.
 - Sell 100% BTC of your available balance at market price when the condition is met.
 
