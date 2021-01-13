@@ -33,9 +33,8 @@ router.post('/tradingview/btcusd', async (req, res, next) => {
         res.sendStatus(200);
     } catch (err) {
         console.error(err);
-        res.status(500).json({
-            err: err.message
-        });
+        LINE(err.message);
+        res.sendStatus(200);
     }
 });
 
