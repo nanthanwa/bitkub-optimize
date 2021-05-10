@@ -9,7 +9,7 @@
     "console-stamp": "^3.0.2",
     "cors": "^2.8.5",
     "date-fns": "^2.21.1",
-    "dotenv": "^8.2.0",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "mariadb": "^2.5.3",
     "morgan": "^1.10.0",
