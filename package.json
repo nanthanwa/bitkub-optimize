@@ -4,7 +4,7 @@
   "description": "Node.JS trading bot for Bitkub.com using TradingView webhook",
   "main": "app.js",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.22.0",
     "body-parser": "^1.19.0",
     "console-stamp": "^3.0.3",
     "cors": "^2.8.5",
