@@ -7,6 +7,7 @@ This application is based on [bitkub-official-api-docs](https://github.com/bitku
 
 ![](https://smartadvicefordumbmillennials.com/wp-content/uploads/2017/10/wolf_of_wall_street_money.gif)
 
+
 ## Features
 - Buy or Sell Bitcoin when received webhook from TradingView.
 - Records transactions to the self-managed database.
