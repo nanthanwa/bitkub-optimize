@@ -14,7 +14,7 @@
     "mariadb": "^3.0.0",
     "morgan": "^1.10.0",
     "qs": "^6.10.3",
-    "sequelize": "^6.19.0"
+    "sequelize": "^6.19.2"
   },
   "devDependencies": {},
   "scripts": {
