@@ -6,7 +6,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
-    "console-stamp": "^3.0.6",
+    "console-stamp": "^3.1.0",
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
     "dotenv": "^16.0.1",
