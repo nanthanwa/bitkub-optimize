@@ -13,7 +13,7 @@
     "express": "^4.21.2",
     "mariadb": "^3.0.0",
     "morgan": "^1.10.0",
-    "qs": "^6.10.5",
+    "qs": "^6.13.1",
     "sequelize": "^6.29.3"
   },
   "devDependencies": {},
